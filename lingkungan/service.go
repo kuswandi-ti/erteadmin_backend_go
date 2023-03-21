@@ -28,13 +28,11 @@ func (s *service) SaveLingkungan(input CreateLingkunganInput) (Lingkungan, error
 	if err != nil {
 		return lingkungan, err
 	}
-
 	if lingkungan.ID != 0 {
 		return lingkungan, errors.New("Nama lingkungan sudah terdaftar")
 	}
 
 	newLingkungan, err := s.repository.Save(lingkungan)
-
 	if err != nil {
 		return newLingkungan, err
 	}

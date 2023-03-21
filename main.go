@@ -5,6 +5,7 @@ import (
 	"erteadmin_backend/handler"
 	"erteadmin_backend/lingkungan"
 	"erteadmin_backend/user"
+	"erteadmin_backend/wilayah"
 	"fmt"
 	"log"
 	"os"
@@ -36,15 +37,18 @@ func main() {
 	// Repository
 	userRepository := user.NewRepository(db)
 	lingkunganRepository := lingkungan.NewRepository(db)
+	wilayahRepository := wilayah.NewRepository(db)
 
 	// Service
 	userService := user.NewService(userRepository)
 	authService := auth.NewService()
 	lingkunganService := lingkungan.NewService(lingkunganRepository)
+	wilayahService := wilayah.NewService(wilayahRepository)
 
 	// Handler
 	userHandler := handler.NewUserHandler(userService, authService)
 	lingkunganHandler := handler.NewLingkunganHandler(lingkunganService)
+	wilayahHandler := handler.NewWilayahHandler(wilayahService)
 
 	// gin.SetMode(gin.ReleaseMode)
 
@@ -58,6 +62,12 @@ func main() {
 
 	// Lingkungan
 	api.POST("/lingkungan", lingkunganHandler.CreateLingkungan)
+
+	// Wilayah
+	api.GET("/provinsi", wilayahHandler.GetAllProvinsi)
+	api.POST("/kabkota", wilayahHandler.GetKabKotaByProvinsiID)
+	api.POST("/kecamatan", wilayahHandler.GetKecamatanByKabKotaID)
+	api.POST("/kelurahan", wilayahHandler.GetKelurahanByKecamatanID)
 
 	// User
 	api.POST("/users", userHandler.RegisterUser)

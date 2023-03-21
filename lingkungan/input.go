@@ -8,3 +8,7 @@ type CreateLingkunganInput struct {
 	KecamatanID int    `json:"kecamatan_id" binding:"required"`
 	KelurahanID int    `json:"kelurahan_id" binding:"required"`
 }
+
+type FindKabKotaInput struct {
+	LingkunganID int `json:"lingkungan_id" binding:"required"`
+}

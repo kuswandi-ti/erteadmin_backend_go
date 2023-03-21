@@ -30,7 +30,6 @@ func (h *lingkunganHandler) CreateLingkungan(c *gin.Context) {
 	}
 
 	newLingkungan, err := h.lingkunganService.SaveLingkungan(input)
-
 	if err != nil {
 		response := helper.APIResponse(err.Error(), http.StatusBadRequest, "error", nil)
 		c.JSON(http.StatusBadRequest, response)

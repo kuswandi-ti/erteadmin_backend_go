@@ -1,6 +1,8 @@
 package lingkungan
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+)
 
 type Repository interface {
 	Save(lingkungan Lingkungan) (Lingkungan, error)
